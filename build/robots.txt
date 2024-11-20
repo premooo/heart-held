@@ -1,7 +1,0 @@
-# https://www.robotstxt.org/robotstxt.html
-User-agent: *
-Disallow:
-
-
-//User rafaelvalleremo9
-//pass d4pA9tSiC1vWRk8u
