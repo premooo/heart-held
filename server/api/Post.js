@@ -7,7 +7,7 @@ function Post() {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:5000/post')
+    fetch(`${process.env.REACT_APP_API_URL}/post`)
       .then((response) => response.json())
       .then((data) => {
         setPosts(data.items || []);
@@ -16,27 +16,24 @@ function Post() {
       .catch((error) => console.error('Error fetching posts:', error));
   }, []);
 
-  // Handle the search input change
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
     filterPosts(e.target.value);
   };
 
-  // Filter the posts based on recipient name
   const filterPosts = (query) => {
     if (query === '') {
-      setFilteredPosts(posts); // If search is empty, show all posts
+      setFilteredPosts(posts);
     } else {
       const filtered = posts.filter((post) =>
         post.recipient.toLowerCase().includes(query.toLowerCase())
       );
-      setFilteredPosts(filtered); // Show filtered posts based on recipient
+      setFilteredPosts(filtered);
     }
   };
 
   return (
     <main className='postFeed'>
-      {/* Search Bar */}
       <div className="search-container">
         <input
           type="text"
@@ -47,7 +44,6 @@ function Post() {
         />
       </div>
 
-      {/* Display filtered posts */}
       <div className="container-grid">
         {filteredPosts.map((post) => (
           <Link to={`/post/${post._id}`} key={post._id} className="card">

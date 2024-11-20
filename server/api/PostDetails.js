@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 function PostDetails() {
-  const { id } = useParams(); // Get the ID from the route
+  const { id } = useParams();
   const [post, setPost] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/post/${id}`) // Fetch post by ID
+    fetch(`${process.env.REACT_APP_API_URL}/post/${id}`)
       .then((response) => response.json())
       .then((data) => setPost(data))
       .catch((error) => console.error('Error fetching post details:', error));
@@ -16,16 +16,13 @@ function PostDetails() {
     return <p>Loading...</p>;
   }
 
-  // Determine the image source
   const getImageSrc = () => {
     if (post.imageUrl.startsWith('data:image')) {
-      // Base64 image data
       return post.imageUrl;
     } else if (post.imageUrl) {
-      // File path, serve from backend
-      return `http://localhost:5000/${post.imageUrl}`;
+      return `${process.env.REACT_APP_API_URL}/${post.imageUrl}`;
     }
-    return null; // No image
+    return null;
   };
 
   return (
@@ -36,7 +33,6 @@ function PostDetails() {
           <p>to: <strong>{post.recipient}</strong></p>
         </div>
 
-        {/* Conditionally render image only if it exists */}
         {getImageSrc() && (
           <article>
             <img 
