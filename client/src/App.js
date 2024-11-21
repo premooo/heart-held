@@ -17,10 +17,22 @@ function App() {
           <main>
             <Helmet>
               <meta charSet="utf-8" />
-              <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; script-src 'self';" />
+              <meta
+                httpEquiv="Content-Security-Policy"
+                content="
+                  default-src 'self'; 
+                  img-src 'self' data: https:
+                  script-src 'self' https:
+                  font-src 'self' https:
+                  connect-src 'self' http:
+                  style-src 'self' https:
+                  object-src 'none';
+                  frame-src 'none';"
+              />
               <meta httpEquiv="X-Frame-Options" content="deny" />
               <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
               <meta name="referrer" content="no-referrer" />
+              <title>Heart Held</title>
               <meta name="description" content="Share heartfelt messages, poems, and stories." />
             </Helmet>
             <Routes>
