@@ -20,7 +20,7 @@ function PostDetails() {
     if (post.imageUrl.startsWith('data:image')) {
       return post.imageUrl;
     } else if (post.imageUrl) {
-      return `${process.env.REACT_APP_API_URL}/${post.imageUrl}`;
+      return `https://heart-held-api.onrender.com/${post.imageUrl}`;
     }
     return null;
   };
