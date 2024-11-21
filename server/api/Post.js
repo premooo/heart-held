@@ -7,7 +7,7 @@ function Post() {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    fetch(`http://localhost:5000/post`)
+    fetch(`https://heart-held-api.onrender.com/post`)
       .then((response) => response.json())
       .then((data) => {
         setPosts(data.items || []);
