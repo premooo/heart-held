@@ -20,12 +20,11 @@ function App() {
               <meta
                 httpEquiv="Content-Security-Policy"
                 content="
-                  default-src 'self'; 
+                   default-src 'self'; 
                   img-src 'self' data: https://fonts.gstatic.com; 
                   script-src 'self' https://apis.google.com; 
                   font-src 'self' https://fonts.gstatic.com;
-                  connect-src 'self' http://localhost:5000;
-                  connect-src 'self' https://heart-held-api.onrender.com;
+                  connect-src 'self' http://localhost:5000; 
                   style-src 'self' https://fonts.googleapis.com;
                   object-src 'none';
                   frame-src 'none';"
