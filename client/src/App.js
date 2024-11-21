@@ -21,7 +21,7 @@ function App() {
                 httpEquiv="Content-Security-Policy"
                 content="
                   default-src 'self'; 
-                  img-src 'self' data: https://fonts.gstatic.com; 
+                  img-src 'self' data: https://fonts.gstatic.com https://assets.codepen.io; 
                   script-src 'self' https://apis.google.com; 
                   font-src 'self' https://fonts.gstatic.com;
                   connect-src 'self' http://localhost:5000 https://heart-held-api.onrender.com; 
