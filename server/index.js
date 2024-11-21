@@ -12,9 +12,6 @@ app.use(cors({
     origin: '*',
 }));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '/build', 'index.html')); // Serve the index.html for all routes
-});
 
 connectDB();
 
