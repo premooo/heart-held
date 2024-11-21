@@ -8,7 +8,7 @@ function Post() {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    fetch('https://heart-held-api.onrender.com/post')
+    fetch('${process.env.REACT_APP_API_URL}/post')
       .then((response) => response.json())
       .then((data) => {
         setPosts(data.items || []);
