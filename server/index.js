@@ -8,14 +8,14 @@ const path = require('path');
 const app = express();
 app.use('/uploads', express.static('uploads'));
 app.use(express.json({ limit: '50mb' }));
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, '/build')));
 
 app.use(cors({
     origin: '*',
 }));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html')); // Serve the index.html for all routes
+  res.sendFile(path.join(__dirname, '/build', 'index.html')); // Serve the index.html for all routes
 });
 
 connectDB();
