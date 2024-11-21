@@ -7,25 +7,27 @@ function Post() {
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
 
-useEffect(() => {
-  fetch(`${process.env.REACT_APP_API_URL}/post`)
-    .then((response) => response.json())
-    .then((data) => {
-      setPosts(data.items || []);
-      setFilteredPosts(data.items || []);
-    })
-    .catch((error) => console.error('Error fetching posts:', error));
-}, []);
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_API_URL}/post`)
+      .then((response) => response.json())
+      .then((data) => {
+        setPosts(data.items || []);
+        setFilteredPosts(data.items || []);
+      })
+      .catch((error) => console.error('Error fetching posts:', error));
+      
+  }, []);
 
   const handleSearchChange = (e) => {
-    const sanitizedQuery = DOMPurify.sanitize(e.target.value); 
+    const sanitizedQuery = DOMPurify.sanitize(e.target.value);
     setSearchQuery(sanitizedQuery);
     filterPosts(sanitizedQuery);
   };
 
+
   const filterPosts = (query) => {
     if (query === '') {
-      setFilteredPosts(posts);
+      setFilteredPosts(posts); 
     } else {
       const filtered = posts.filter((post) =>
         post.recipient.toLowerCase().includes(query.toLowerCase())
