@@ -40,7 +40,7 @@ const PostForm = () => {
       imageUrl: base64Image,
     };
     try {
-      const response = await fetch(`https://heart-held-api.onrender.com/post`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/post`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
