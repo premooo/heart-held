@@ -3,13 +3,20 @@ const connectDB = require('./db.js');
 const itemModel = require('./models/Post.js');
 const cors = require('cors');
 const multer = require('multer');
+const path = require('path');
 
 const app = express();
 app.use('/uploads', express.static('uploads'));
 app.use(express.json({ limit: '50mb' }));
+app.use(express.static(path.join(__dirname, 'client/build')));
+
 app.use(cors({
     origin: '*',
 }));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html')); // Serve the index.html for all routes
+});
 
 connectDB();
 
