@@ -1,10 +1,12 @@
+require('dotenv').config(); 
+
 const express = require('express');
 const connectDB = require('./db.js');
 const itemModel = require('./models/Post.js');
 const cors = require('cors');
 const multer = require('multer');
-
 const app = express();
+
 app.use('/uploads', express.static('uploads'));
 app.use(express.json({ limit: '50mb' }));
 
