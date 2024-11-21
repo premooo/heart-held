@@ -35,7 +35,7 @@ const PostForm = () => {
     };
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/post`, {
+      const response = await fetch(`https://heart-held-api.onrender.com/post`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
