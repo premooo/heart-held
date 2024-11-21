@@ -19,13 +19,12 @@ const PostForm = () => {
       setStatus('Recipient and message are required!');
       return;
     }
-    
+
+    // Sanitize inputs
     const sanitizedRecipient = DOMPurify.sanitize(recipient);
     const sanitizedMessage = DOMPurify.sanitize(message);
     const sanitizedTitle = DOMPurify.sanitize(title);
     const sanitizedAuthor = DOMPurify.sanitize(author.trim()) || 'Anonymous';
-
-    const postAuthor = author.trim() ? author : 'Anonymous';
 
     let base64Image = '';
     if (image) {
@@ -39,6 +38,8 @@ const PostForm = () => {
       author: sanitizedAuthor,
       imageUrl: base64Image,
     };
+
+
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/post`, {
         method: 'POST',
