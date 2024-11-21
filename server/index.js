@@ -1,53 +1,68 @@
 const express = require('express');
-const connectDB = require('./db');
-const itemModel = require('./models/Post');
+const connectDB = require('./db.js');
+const itemModel = require('./models/Post.js');
 const cors = require('cors');
 const multer = require('multer');
-const dotenv = require('dotenv');
-
-dotenv.config();
 
 const app = express();
 app.use('/uploads', express.static('uploads'));
 app.use(express.json({ limit: '50mb' }));
-app.use(cors());
+app.use(cors({
+    origin: '*',
+}));
+
 connectDB();
 
 const upload = multer({ dest: 'uploads/' });
 
+// Create Post
 app.post('/post', upload.single('image'), async (req, res) => {
-    const { title, recipient, body, author } = req.body;
-    const imageUrl = req.file ? req.file.path : '';
-
-    const newPost = { title, recipient, body, author: author || 'Anonymous', imageUrl };
     try {
-        const post = await itemModel.create(newPost);
+        const { title, recipient, body, author } = req.body;
+        const imageUrl = req.file ? req.file.path : req.body.imageUrl || '';
+
+        const newPost = new itemModel({
+            title,
+            recipient,
+            body,
+            author: author || 'Anonymous',
+            imageUrl,
+        });
+
+        const post = await newPost.save();
         res.status(201).json(post);
     } catch (error) {
+        console.error('Error creating post:', error);
         res.status(500).json({ message: 'Error creating post', error });
     }
 });
 
+// Fetch All Posts
 app.get('/post', async (req, res) => {
     try {
-        const posts = await itemModel.find();
-        res.status(200).json({ items: posts });
+        const response = await itemModel.find();
+        res.json({ items: response });
     } catch (error) {
-        res.status(500).json({ message: 'Error fetching posts', error });
+        console.error('Error fetching posts:', error);
+        res.status(500).json({ message: 'Error fetching posts' });
     }
 });
 
+// Fetch Single Post by ID
 app.get('/post/:id', async (req, res) => {
     try {
         const post = await itemModel.findById(req.params.id);
-        res.status(200).json(post);
+        if (!post) {
+            return res.status(404).json({ message: 'Post not found' });
+        }
+        res.json(post);
     } catch (error) {
-        res.status(500).json({ message: 'Error fetching post', error });
+        console.error('Error retrieving post:', error);
+        res.status(500).json({ message: 'Error retrieving post' });
     }
 });
 
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => {
-    console.log(`Server started on port ${PORT}`);
+const PORT = 5000;
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server is running on http://0.0.0.0:${PORT}`);
 });

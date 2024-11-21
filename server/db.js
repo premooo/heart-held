@@ -2,8 +2,10 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
     try {
-        const conn = await mongoose.connect(process.env.ATLAS_URI);
-        console.log('MongoDB Connected');
+        const conn = await mongoose.connect(
+            'mongodb+srv://rafaelvalleremo9:d4pA9tSiC1vWRk8u@cluster0.nbysm.mongodb.net/feed?retryWrites=true&w=majority&appName=Cluster0',
+            );
+        console.log(`MongoDB Connected`);
     } catch (error) {
         console.error(error);
         process.exit(1);
