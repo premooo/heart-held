@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 function PostDetails() {
-  const { id } = useParams(); // Get the ID from the route
+  const { id } = useParams(); 
   const [post, setPost] = useState(null);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/post/${id}`) // Fetch post by ID
+    fetch(`${process.env.REACT_APP_API_URL}/post/${id}`) 
       .then((response) => response.json())
       .then((data) => setPost(data))
       .catch((error) => console.error('Error fetching post details:', error));
