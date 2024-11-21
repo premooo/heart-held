@@ -37,7 +37,7 @@ const Home = () => {
         <div className='hero-desc'>
             <h1>About Heart Held</h1>
             <div className='hero-desc-sub-cont'>
-              <p className='hero-desc-sub'><strong>Heart Held</strong> is a creative platform where users can share memories, write and dedicate poems, and send heartfelt letters to someone special, offering a unique space for personal expression and connection..</p>
+              <p className='hero-desc-sub'><strong>Heart Held</strong> is a creative platform where users can share memories, write and dedicate heartfelt letters to someone special, offering a unique space for personal expression and connection..</p>
             </div>
 
         </div>
