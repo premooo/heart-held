@@ -370,10 +370,16 @@ button{
   margin: 0px 2%;
   max-width: 500px;
   min-width: 300px;
+  min-height: 50vh;
+  max-height: 50vh;
   background-color: white;
   padding: 4rem;
   transform: rotate(2deg);
   box-shadow: 0px 20px 20px rgba(181, 101, 29, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: .5px solid rgb(223, 223, 223);
 }
 
 .post-image{
