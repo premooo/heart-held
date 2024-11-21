@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import DOMPurify from 'dompurify';
 
 const PostForm = () => {
   const [title, setTitle] = useState('');
@@ -18,6 +19,11 @@ const PostForm = () => {
       setStatus('Recipient and message are required!');
       return;
     }
+    
+    const sanitizedRecipient = DOMPurify.sanitize(recipient);
+    const sanitizedMessage = DOMPurify.sanitize(message);
+    const sanitizedTitle = DOMPurify.sanitize(title);
+    const sanitizedAuthor = DOMPurify.sanitize(author.trim()) || 'Anonymous';
 
     const postAuthor = author.trim() ? author : 'Anonymous';
 
@@ -27,13 +33,12 @@ const PostForm = () => {
     }
 
     const newPost = {
-      title,
-      recipient,
-      body: message,
-      author: postAuthor,
+      title: sanitizedTitle,
+      recipient: sanitizedRecipient,
+      body: sanitizedMessage,
+      author: sanitizedAuthor,
       imageUrl: base64Image,
     };
-
     try {
       const response = await fetch(`https://heart-held-api.onrender.com/post`, {
         method: 'POST',
@@ -78,50 +83,56 @@ const PostForm = () => {
 
   return (
     <div>
-      <form className="PostForm" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          className="post-recipient"
-          placeholder="Recipient"
-          value={recipient}
-          required
-          onChange={(e) => setRecipient(e.target.value)}
-        />
-        <input
-          type="text"
-          className="post-title"
-          placeholder="Title"
-          value={title}
-          required
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <input
-          type="text"
-          className="post-author"
-          placeholder="Author (optional)"
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
-        />
-        <textarea
-          name="post-message"
-          id="post-message"
-          className="post-message"
-          placeholder="What’s in your heart?"
-          value={message}
-          required
-          onChange={(e) => setMessage(e.target.value)}
-        />
-        <input
-          type="file"
-          className="post-image-input"
-          accept="image/*"
-          onChange={handleImageChange}
-        />
-        <button type="submit">Submit</button>
-      </form>
+    <form className="PostForm" onSubmit={handleSubmit}>
+      <input
+        type="text"
+        className="post-recipient"
+        placeholder="Recipient"
+        value={recipient}
+        required
+        onChange={(e) => setRecipient(e.target.value)}
+      />
+      <input
+        type="text"
+        className="post-title"
+        placeholder="Title"
+        value={title}
+        required
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      <input
+        type="text"
+        className="post-author"
+        placeholder="Author (optional)"
+        value={author}
+        onChange={(e) => setAuthor(e.target.value)}
+      />
+      <textarea
+        name="post-message"
+        id="post-message"
+        className="post-message"
+        placeholder="What’s in your heart?"
+        value={message}
+        required
+        onChange={(e) => setMessage(e.target.value)}
+      />
+      <input
+        type="file"
+        className="post-image-input"
+        accept="image/*"
+        onChange={handleImageChange}
+      />
+                {/* Error message box */}
+    {status && (
+      <div className="error-box">
+        {status}
+      </div>
+    )}
+      <button type="submit">Submit</button>
+    </form>
+  
 
-      {status && <p className="status-message">{status}</p>}
-    </div>
+  </div>
   );
 };
 
