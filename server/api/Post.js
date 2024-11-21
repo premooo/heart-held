@@ -7,7 +7,7 @@ function Post() {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    fetch(`http://localhost:5000//post`)
+    fetch(`http://localhost:5000/post`)
       .then((response) => response.json())
       .then((data) => {
         setPosts(data.items || []);
