@@ -6,7 +6,7 @@ function PostDetails() {
   const [post, setPost] = useState(null);
 
   useEffect(() => {
-    fetch(`https://heart-held-api.onrender.com/post/${id}`)
+    fetch(`${process.env.REACT_APP_API_URL}/post/${id}`)
       .then((response) => response.json())
       .then((data) => setPost(data))
       .catch((error) => console.error('Error fetching post details:', error));
@@ -20,7 +20,7 @@ function PostDetails() {
     if (post.imageUrl.startsWith('data:image')) {
       return post.imageUrl;
     } else if (post.imageUrl) {
-      return `https://heart-held-api.onrender.com/${post.imageUrl}`;
+      return `${process.env.REACT_APP_API_URL}/${post.imageUrl}`;
     }
     return null;
   };
