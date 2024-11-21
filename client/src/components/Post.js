@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import DOMPurify from 'dompurify';
 
 function Post() {
   const [posts, setPosts] = useState([]);
@@ -16,27 +17,25 @@ function Post() {
       .catch((error) => console.error('Error fetching posts:', error));
   }, []);
 
-  // Handle the search input change
   const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-    filterPosts(e.target.value);
+    const sanitizedQuery = DOMPurify.sanitize(e.target.value); 
+    setSearchQuery(sanitizedQuery);
+    filterPosts(sanitizedQuery);
   };
 
-  // Filter the posts based on recipient name
   const filterPosts = (query) => {
     if (query === '') {
-      setFilteredPosts(posts); // If search is empty, show all posts
+      setFilteredPosts(posts);
     } else {
       const filtered = posts.filter((post) =>
         post.recipient.toLowerCase().includes(query.toLowerCase())
       );
-      setFilteredPosts(filtered); // Show filtered posts based on recipient
+      setFilteredPosts(filtered); 
     }
   };
 
   return (
     <main className='postFeed'>
-      {/* Search Bar */}
       <div className="search-container">
         <input
           type="text"
@@ -47,7 +46,6 @@ function Post() {
         />
       </div>
 
-      {/* Display filtered posts */}
       <div className="container-grid">
         {filteredPosts.map((post) => (
           <Link to={`/post/${post._id}`} key={post._id} className="card">
