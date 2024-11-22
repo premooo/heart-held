@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/inc/Header';
 import PostFeed from './pages/PostFeed';
 import Home from './pages/Home';
@@ -11,7 +11,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 function App() {
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <Router>
         <div className="App">
           <Header />
           <main>
@@ -44,7 +44,7 @@ function App() {
           </main>
           <Footer />
         </div>
-      </BrowserRouter>
+      </Router>
     </HelmetProvider>
   );
 }
