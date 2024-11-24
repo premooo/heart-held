@@ -454,3 +454,77 @@ footer{
   margin-top: 4rem;
 }
 
+
+/* Track Css */
+
+.track-search {
+  position: relative;
+}
+
+.track-search input{
+  width: 100%;
+}
+
+.track-search button ul li{
+  width: 100%;
+  gap: 10px;
+}
+
+
+.track-search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1;
+  margin-top: 5px;
+  padding: 0;
+}
+
+.track-search-result-item {
+  list-style: none;
+}
+
+.track-search-result-button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  text-align: left;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  color: black; /* Set font color to dark gray (or any color you prefer) */
+}
+
+.track-search-result-button:hover {
+  background-color: #ccc;
+  color: black; /* Change the color to black when hovered (optional) */
+}
+
+.track-thumbnail {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.selected-track {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.selected-track-thumbnail {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  border-radius: 5px;
+}
