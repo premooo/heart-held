@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const connectDB = require('./db.js');
 const itemModel = require('./models/Post.js');
 const cors = require('cors');
