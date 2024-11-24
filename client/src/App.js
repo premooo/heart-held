@@ -30,7 +30,6 @@ function App() {
                   frame-src 'self' https://sdk.scdn.com https://open.spotify.com/; 
                 "
               />
-              <meta httpEquiv="X-Frame-Options" content="deny" />
               <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
               <meta name="referrer" content="no-referrer" />
               <title>Heart Held</title>
