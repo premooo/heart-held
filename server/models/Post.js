@@ -7,6 +7,7 @@ const postSchema = new mongoose.Schema({
   author: { type: String, required: false },
   imageUrl: { type: String, default: '' },
   createdAt: { type: Date, default: Date.now },
+  trackId: { type: String, required: false }, 
 });
 
 const Post = mongoose.model('Post', postSchema);
