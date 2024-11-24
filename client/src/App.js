@@ -21,13 +21,14 @@ function App() {
                 httpEquiv="Content-Security-Policy"
                 content="
                   default-src 'self'; 
-                  img-src 'self' data: https://fonts.gstatic.com https://assets.codepen.io; 
-                  script-src 'self' https://apis.google.com; 
+                  img-src 'self' data: https://fonts.gstatic.com https://assets.codepen.io https://i.scdn.co; 
+                  script-src 'self' https://apis.google.com https://sdk.scdn.co; 
                   font-src 'self' https://fonts.gstatic.com;
-                  connect-src 'self' http://localhost:5000 https://heart-held-api.onrender.com; 
+                  connect-src 'self' http://localhost:5000 https://heart-held-api.onrender.com;
                   style-src 'self' https://fonts.googleapis.com; 
                   object-src 'none'; 
-                  frame-src 'none';"
+                  frame-src 'self' https://sdk.scdn.com https://open.spotify.com/; 
+                "
               />
               <meta httpEquiv="X-Frame-Options" content="deny" />
               <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
