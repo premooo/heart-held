@@ -16,16 +16,24 @@ function PostDetails() {
     return <p>Loading...</p>;
   }
 
+  const getTrackId = (trackId) => {
+    const trackIdWithoutPrefix = trackId.replace('spotify:track:', ''); 
+    return trackIdWithoutPrefix;
+  };
+
+  const getSpotifyEmbedUrl = (trackId) => {
+    const trackIdWithoutPrefix = getTrackId(trackId);
+    return `https://open.spotify.com/embed/track/${trackIdWithoutPrefix}`;
+  };
+
   // Determine the image source
   const getImageSrc = () => {
     if (post.imageUrl.startsWith('data:image')) {
-      // Base64 image data
-      return post.imageUrl;
+      return post.imageUrl; 
     } else if (post.imageUrl) {
-      // File path, serve from backend
       return `${process.env.REACT_APP_API_URL}/${post.imageUrl}`;
     }
-    return null; // No image
+    return null;
   };
 
   return (
@@ -36,7 +44,6 @@ function PostDetails() {
           <p>to: <strong>{post.recipient}</strong></p>
         </div>
 
-        {/* Conditionally render image only if it exists */}
         {getImageSrc() && (
           <article>
             <img 
@@ -50,6 +57,20 @@ function PostDetails() {
         <div className='post-body-actual'>
           <p>{post.body}</p>
         </div>
+
+        {post.trackId && (
+          <div className="spotify-player">
+            <iframe 
+              src={getSpotifyEmbedUrl(post.trackId)} 
+              width="300" 
+              height="80" 
+              frameBorder="0" 
+              allowTransparency="true" 
+              allow="encrypted-media"
+              title="Spotify Track Player"
+            ></iframe>
+          </div>
+        )}
 
         <div className='detail-end'>
           {post.author && <p><strong>from:</strong> {post.author}</p>}
