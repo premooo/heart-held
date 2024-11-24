@@ -13,7 +13,7 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.static(path.join(__dirname, 'public'), { index: 'index.html' }));
 
 app.use(cors({
-    origin: 'https://heart-held.onrender.com/',
+    origin: '*',
 }));
 
 
