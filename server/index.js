@@ -6,14 +6,26 @@ const cors = require('cors');
 const multer = require('multer');
 require('dotenv').config();
 const axios = require('axios');
+const allowedOrigins = [
+  'https://heart-held.onrender.com',
+  'https://heart-held-api.onrender.com'
+];
 
 const app = express();
 app.use('/uploads', express.static('uploads'));
 app.use(express.json({ limit: '50mb' }));
 app.use(express.static(path.join(__dirname, 'public'), { index: 'index.html' }));
 
+
+
 app.use(cors({
-    origin: '*',
+  origin: function(origin, callback) {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
 }));
 
 
