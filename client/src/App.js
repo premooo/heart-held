@@ -24,7 +24,7 @@ function App() {
                 img-src 'self' data: https://fonts.gstatic.com https://assets.codepen.io https://i.scdn.co; 
                 script-src 'self' https://apis.google.com https://sdk.scdn.co; 
                 font-src 'self' https://fonts.gstatic.com;
-                connect-src 'self' http://localhost:5000 https://heart-held-api.onrender.com https://heart-held-api.vercel.app https://heart-held-api.vercel.app/post;
+                connect-src 'self' http://localhost:5000 https://heart-held-api.onrender.com https://heart-held-api.vercel.app https://heart-held-api.vercel.app/post https://heart-held-api.vercel.app/search-songs?q=s;
                 style-src 'self' https://fonts.googleapis.com; 
                 object-src 'none'; 
                 frame-src 'self' https://sdk.scdn.com https://open.spotify.com/; 
