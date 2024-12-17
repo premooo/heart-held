@@ -3,6 +3,11 @@ const path = require('path');
 const connectDB = require('./db.js');
 const itemModel = require('./models/Post.js');
 const cors = require('cors');
+const corsConfig = {
+  origin: "*",
+  credential: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+};
 const multer = require('multer');
 require('dotenv').config();
 const axios = require('axios');
@@ -17,7 +22,7 @@ app.use(express.static(path.join(__dirname, 'public'), { index: 'index.html' }))
 
 
 
-app.use(cors());
+app.use(cors(corsConfig));
 
 
 connectDB();
