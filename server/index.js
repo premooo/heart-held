@@ -7,8 +7,7 @@ const multer = require('multer');
 require('dotenv').config();
 const axios = require('axios');
 const allowedOrigins = [
-  'https://heart-held.onrender.com',
-  'https://heart-held-api.onrender.com'
+  'https://heart-held.onrender.com'
 ];
 
 const app = express();
