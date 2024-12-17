@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DOMPurify from 'dompurify';
+import axios from 'axios';
 
 const PostForm = () => {
   const [title, setTitle] = useState('');
@@ -11,12 +12,12 @@ const PostForm = () => {
   const [trackUri, setTrackUri] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const [selectedTrack, setSelectedTrack] = useState(null); 
+  const [selectedTrack, setSelectedTrack] = useState(null);
   const [status, setStatus] = useState('');
   const navigate = useNavigate();
 
   const fetchSongs = async (query) => {
-    if (!query) return; 
+    if (!query) return;
     try {
       const response = await axios.get(`${process.env.REACT_APP_API_URL}/search-songs?q=${query}`);
       setSearchResults(response.data);
@@ -34,19 +35,19 @@ const PostForm = () => {
 
   const handleSongSelect = (track) => {
     setTrackUri(track.uri);
-    setSelectedTrack(track); 
-    setSearchQuery(''); 
-    setSearchResults([]); 
+    setSelectedTrack(track);
+    setSearchQuery('');
+    setSearchResults([]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (!recipient || !message) {
       setStatus('Recipient and message are required!');
       return;
     }
-  
+
     const sanitizedData = {
       title: DOMPurify.sanitize(title),
       recipient: DOMPurify.sanitize(recipient),
@@ -54,24 +55,26 @@ const PostForm = () => {
       author: DOMPurify.sanitize(author.trim()) || 'Anonymous',
       trackId: trackUri,
     };
-  
+
     let base64Image = '';
     if (image) {
       base64Image = await convertToBase64(image);
     }
-  
+
     const newPost = {
       ...sanitizedData,
-      imageUrl: base64Image
+      imageUrl: base64Image,
     };
-  
+
+    console.log(newPost); // Debugging: log data before sending
+
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/post`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newPost),
       });
-  
+
       if (response.ok) {
         // Reset form
         setTitle('');
@@ -79,7 +82,7 @@ const PostForm = () => {
         setMessage('');
         setAuthor('');
         setImage(null);
-        setTrackUri(''); 
+        setTrackUri('');
         navigate('/post');
       } else {
         setStatus('Failed to submit the post.');
