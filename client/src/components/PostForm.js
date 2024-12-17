@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DOMPurify from 'dompurify';
-import axios from 'axios';
 
 const PostForm = () => {
   const [title, setTitle] = useState('');
@@ -55,24 +54,25 @@ const PostForm = () => {
       author: DOMPurify.sanitize(author.trim()) || 'Anonymous',
       trackId: trackUri,
     };
-
-    const formData = new FormData();
-    formData.append('title', sanitizedData.title);
-    formData.append('recipient', sanitizedData.recipient);
-    formData.append('body', sanitizedData.body);
-    formData.append('author', sanitizedData.author);
-    formData.append('trackId', sanitizedData.trackId);
-
+  
+    let base64Image = '';
     if (image) {
-      formData.append('image', image);
+      base64Image = await convertToBase64(image);
     }
-
+  
+    const newPost = {
+      ...sanitizedData,
+      imageUrl: base64Image
+    };
+  
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/post`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/post`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newPost),
       });
-
-      if (response.status === 201) {
+  
+      if (response.ok) {
         // Reset form
         setTitle('');
         setRecipient('');
@@ -93,6 +93,15 @@ const PostForm = () => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) setImage(file);
+  };
+
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
   };
 
   return (
